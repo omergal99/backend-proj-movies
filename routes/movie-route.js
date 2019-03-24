@@ -27,19 +27,18 @@ function addMovieRoutes(app) {
             
     })
 
-    // SINGLE - GET Full details including reviews
+    // // SINGLE - GET Full details including reviews
     // app.get('/movie/:movieId', (req, res) => {
     //     const movieId = req.params.movieId;
     //     Promise.all([
-    //         movieService.getById(movieId),
-    //         reviewService.query({movieId})
-    //     ])
-    //     .then(([movie,reviews]) => {
-    //         res.json( {
-    //             movie,reviews
+    //         movieService.getById(movieId)          
+    //     .then((movie) => {
+    //         res.json( {   movie
     //         })
+    //     }
     //     })
-    // })
+        
+    
 
     // DELETE
     // app.delete('/movie/:movieId', (req, res) => {
