@@ -31,12 +31,10 @@ function addReview({ user, movie, content }) {
         .then(db => db.collection('reviews').insertOne(review))
         // .then (({insertedId: _id}) => ({...review, _id}))
         .then(res => {
-            review.id = res.insertedId;
+            review._id = res.insertedId;
             return review
         })
-
 }
-
 
 // function getUserReviews(userId) {
 //     const id = new ObjectId(userId)
@@ -69,7 +67,6 @@ function getReviewsByDirect(direct, id) {
 
     console.log('ID', byId, typeof (byId))
     if (direct == 'user') {
-
         return mongoService.connect()
             .then(db => db.collection('reviews').find({ "user.userId": byId }).sort({ "rate.countLike.length": -1 }).toArray())
     }
