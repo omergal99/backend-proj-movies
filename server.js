@@ -18,7 +18,7 @@ app.use(express.static('public'));
 
 app.use(cookieParser());
 app.use(session({
-  secret: 'puki muki',
+  secret: 'omer natalia',
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
