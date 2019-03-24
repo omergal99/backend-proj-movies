@@ -7,35 +7,36 @@ function addRoutes(app) {
         userService.query()
             .then(users => res.json(users))
     })
-    app.get(`${BASE}/:id`, (req, res) => {
-        const userId = req.params.id
-        Promise.all([
-            userService.getById(userId),
-            //reviewService.query({ userId })
-        ])
+    app.get(`${BASE}/:userId`, (req, res) => {
+        const userId = req.params.userId
+        userService.getById(userId)
             .then((user) => {
-                // console.log( user )
-                // console.log('blalala', res.json(user ))
                 res.json(user)
-                
             })
     })
 
-    app.post('/singup', (req, res) => {
-        const nickname = req.body.nickname
-        userService.addUser({ nickname })
-            .then(user => res.json(user))
-    })
+    app.get(`${BASE}/logout`, (req, res) => {
+        req.session.destroy();
+        res.json({});
+    });
 
-    app.put('/login', (req, res) => {
-        const nickname = req.body.nickname
-        userService.checkLogin({ nickname })
+    app.post(`${BASE}/singup`, (req, res) => {
+        const userNamePass = req.body
+        userService.addUser({ userNamePass })
             .then(user => {
-                req.session.user = user
                 res.json(user)
             })
     })
 
+    app.put(`${BASE}/login`, (req, res) => {
+        const userNamePass = req.body
+        console.log('tagfggggg', userNamePass)
+        userService.checkLogin({ userNamePass })
+            .then(user => {
+                req.session.loggedInUser = user
+                res.json(user)
+            })
+    })
 }
 
 

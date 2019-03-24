@@ -3,13 +3,14 @@ const mongoService = require('./mongo-service')
 const ObjectId = require('mongodb').ObjectId;
 
 
-function query() {
-    return mongoService.connect()
-        .then(db => {
-            const collection = db.collection('movies');
-            return collection.find({}).toArray()
-        })
-}
+// function query() {
+//     return mongoService.connect()
+//         .then(db => {
+//             const collection = db.collection('movies');
+//             return collection.find({}).toArray()
+//         })
+// }
+
 function query(query) {
     var queryToMongo = {}
     // var name = 't'
@@ -37,7 +38,7 @@ function query(query) {
             return db.collection('movies').find(queryToMongo).toArray()
         })
         .then(movies =>{
-            console.log('MOVIES ----------', movies)
+            // console.log('MOVIES ----------', movies)
             return movies
         })
 }
@@ -53,7 +54,6 @@ function remove(movieId) {
 }
 
 function getById(movieId) {
-    console.log('movieId',movieId)
     movieId = new ObjectId(movieId)
     return mongoService.connect()
         .then(db => {
