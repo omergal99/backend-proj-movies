@@ -11,6 +11,7 @@ function checkLogin({ nickname }) {
 
 function getById(id) {
     const _id = new ObjectId(id)
+    console.log("id", _id)
     return mongoService.connect()
         .then(db => db.collection('users').findOne({ _id }))
 }

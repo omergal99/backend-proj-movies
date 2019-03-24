@@ -12,22 +12,33 @@ function query() {
 }
 function query(query) {
     var queryToMongo = {}
-    var name = query.name
-    console.log('queryquery',query)
+    // var name = 't'
+    // var queryToMongo = {
+    //     'details.name' : { '$regex': name },
+    //     'details.year' : '1994'
+    // }
 
-    if (name) queryToMongo.name = { '$regex': name }
+    if(query.name) queryToMongo['details.name'] = {'$regex' : query.name}
+    if(query.category)queryToMongo['details.category']=query.category
 
-    if(query.type) queryToMongo.type = query.type
-     if(query.inStock) queryToMongo.inStock = query.inStock
-
+    // var name = query.name
+    // console.log('queryquery',query)
+    // if (name) queryToMongo.name = { '$regex': name }
+    // if(query.details.category) queryToMongo.category = query.details.category
+    
+    //if(query.inStock) queryToMongo.inStock = query.inStock
     // OBJECT TO MONGO LOOKS LIKE THIS: {
     //     name: {'$regex': value},
     //     type: value
     // }
-
+ console.log('querytomongo',queryToMongo )
     return mongoService.connect()
         .then(db => {
             return db.collection('movies').find(queryToMongo).toArray()
+        })
+        .then(movies =>{
+            console.log('MOVIES ----------', movies)
+            return movies
         })
 }
 

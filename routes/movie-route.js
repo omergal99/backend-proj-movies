@@ -17,7 +17,7 @@ function addMovieRoutes(app) {
     app.get('/movie', (req, res) => {
         // console.log('req query',req.body)
         if(req.body) {
-            console.log('123123',req.query)
+            //console.log('123123',req.query)
             movieService.query(req.query)
             .then(movies => res.json(movies))
         }
