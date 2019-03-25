@@ -4,13 +4,14 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 function addReview({ user, movie, content }) {
+    console.log('im heeeer')
     var review = {
         content: {
             txt: content.txt,
             publishedAt: new Date(),
-            comments: content.comments,
-            img: content.img,
-            link: content.link
+            comments: "",
+            img: "",
+            link: ""
         },
         user: {
             userId: new ObjectId(user.userId),
@@ -26,7 +27,9 @@ function addReview({ user, movie, content }) {
             countLike: [],
             countDislike: []
         }
+
     }
+    console.log('review', review)
     return mongoService.connect()
         .then(db => db.collection('reviews').insertOne(review))
         // .then (({insertedId: _id}) => ({...review, _id}))
@@ -89,38 +92,60 @@ function updateReviewTxt(reviewId, txt) {
         })
 }
 
+function updateReviewRate( reviewId,logedInuserId, rateDitection){
+    rev_id = new ObjectId(reviewId)
+    user_id=new ObjectId(logedInuserId)
+    if (rateDitection == 'like'){
+        return mongoService.connect()
+        .then(db => {
+            const collection = db.collection('reviews');
+            return collection.updateOne(
+                { "_id": rev_id },
+                {
+                    $push: {
+                        "rate.countLike": user_id
+                    }
+                }
+            )
+            .then(result => {
+                return reviewId;
+            })
+        })
 
-function updateReviewLike(reviewId, userId) {
-    rev_id = new ObjectId(reviewId)
-    return mongoService.connect()
+    }
+    else{
+        return mongoService.connect()
         .then(db => {
             const collection = db.collection('reviews');
             return collection.update(
                 { "_id": rev_id },
                 {
                     $push: {
-                        "rate.countLike": userId
+                        "rate.countDislike": user_id
                     }
                 }
             )
         })
     }
+}
+
+    
            
-function updateReviewUnlike(id) {
-    rev_id = new ObjectId(reviewId)
-    return mongoService.connect()
-        .then(db => {
-            const collection = db.collection('reviews');
-            return collection.update(
-                { "_id": rev_id },
-                {
-                    $push: {
-                        "rate.countUnlike": userId
-                    }
-                }
-            )
-        })
-    }
+// function updateReviewUnlike(id) {
+//     rev_id = new ObjectId(reviewId)
+//     return mongoService.connect()
+//         .then(db => {
+//             const collection = db.collection('reviews');
+//             return collection.update(
+//                 { "_id": rev_id },
+//                 {
+//                     $push: {
+//                         "rate.countUnlike": userId
+//                     }
+//                 }
+//             )
+//         })
+//     }
 
 function removeReview(reviewId) {
                 reviewId = new ObjectId(reviewId)
@@ -139,7 +164,8 @@ module.exports = {
                 addReview,
                 getReviewsByDirect,
                 updateReviewTxt,
-                updateReviewLike,
-                updateReviewUnlike,
-                removeReview
+                // updateReviewLike,
+                // updateReviewUnlike,
+                removeReview,
+                updateReviewRate
             }
