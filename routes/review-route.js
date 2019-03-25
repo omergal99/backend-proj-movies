@@ -35,6 +35,22 @@ function addRoutes(app) {
                 res.json(reviews)
             })
     })
+
+    app.put(BASE, (req, res) => {
+        const reviewId = req.body.reviewId;
+        const logedInuserId = req.body.updateUser;
+        const rateDitection= req.body.rateDitection;
+        console.log ('direction',reviewId ,logedInuserId,rateDitection)
+        reviewService.updateReviewRate( reviewId,logedInuserId, rateDitection)
+            .then(review => res.json(review))
+    })
+
+    app.put('/review/:reviewId', (req, res) => {
+        const movie = req.body;
+        reviewService.updateReviewLike(reviewID, )
+            .then(movie => res.json(movie))
+    })
+
 }
 
 
