@@ -17,10 +17,10 @@ function connectToMongo() {
 
     return client.connect()
         .then(client => {
-            console.log('Connected to MongoDB');
+            // console.log('Connected to MongoDB');
             // If we get disconnected (e.g. db is down)
             client.on('close', ()=>{
-                console.log('MongoDB Diconnected!');
+                // console.log('MongoDB Diconnected!');
                 dbConn = null;
             })
             dbConn = client.db(dbName)
