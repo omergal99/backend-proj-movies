@@ -43,6 +43,8 @@ function addRoutes(app) {
         console.log('users:', users)
         userService.addFollowUser(users)
     })
+
+
 }
 
 

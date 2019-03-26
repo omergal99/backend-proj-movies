@@ -1,3 +1,6 @@
+const imageService = require('../services/image-service')
+
+
 const mongoService = require('./mongo-service')
 
 const ObjectId = require('mongodb').ObjectId;
@@ -16,6 +19,11 @@ function checkLogin({ userNamePass }) {
 }
 
 function getById(id) {
+    // don't delete, it's user image API
+    // query = {term: 'male'}
+    // imageService.query(query)
+
+
     const _id = new ObjectId(id)
     return mongoService.connect()
         .then(db => db.collection(USER_COLLECTION).findOne({ _id }))
