@@ -10,16 +10,17 @@ function connectToMongo() {
     // const url = 'mongodb+srv://NataliaG:natalia0911@toyproj-zz3ui.mongodb.net/test?retryWrites=true';
     const url = 'mongodb+srv://NataliaG:natalia0911@cluster0-p9ap4.mongodb.net/test?retryWrites=true';
     
-    const dbName = 'movies_DB';
+
+    const dbName = 'movies_DB';  
     
     const client = new MongoClient(url, { useNewUrlParser: true });
 
     return client.connect()
         .then(client => {
-            console.log('Connected to MongoDB');
+            // console.log('Connected to MongoDB');
             // If we get disconnected (e.g. db is down)
             client.on('close', ()=>{
-                console.log('MongoDB Diconnected!');
+                // console.log('MongoDB Diconnected!');
                 dbConn = null;
             })
             dbConn = client.db(dbName)

@@ -13,14 +13,14 @@ function addRoutes(app) {
     
     // add new review
     app.post(BASE, (req, res) => {
-        console.log("body", req.body)
+        // console.log("body", req.body)
         var review = {
             // userId: req.session.userId
             user: req.body.user,
             movie: req.body.movie,
             content: req.body.content
         }
-        console.log("recieved data", review)
+        // console.log("recieved data", review)
         reviewService.addReview(review)
             .then(review => res.json(review))
     })
@@ -29,7 +29,7 @@ function addRoutes(app) {
     app.get(`${BASE}/:direct/:id`, (req, res) => {
         const direct = req.params.direct
         const id = req.params.id
-        console.log('direct', direct, id)
+        // console.log('direct', direct, id)
         reviewService.getReviewsByDirect(direct, id)
             .then(reviews => {
                 res.json(reviews)
