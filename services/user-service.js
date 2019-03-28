@@ -10,7 +10,7 @@ function checkLogin({ userNamePass }) {
     return mongoService.connect()
         .then(db => db.collection(USER_COLLECTION).findOne({ name, password }))
         .then(res => {
-           // console.log('ressssss', res)
+            // console.log('ressssss',res)
             return res
         })
 }
@@ -57,12 +57,32 @@ function addUser(userNamePass) {
        
 }
 
+function addFollowUser(users){
+    var loggedInUser = new ObjectId(users.loggedInUser)
+    var followedUser = new ObjectId(users.followedUser)
+    console.log('loggedInUser:', loggedInUser)
+    console.log('followedUser:', followedUser)
+    return mongoService.connect()
+        .then((db) => {db.collection(USER_COLLECTION).updateOne(      
+            {"_id": loggedInUser},
+            {
+                $push: { "follow.followAfter": followedUser } 
+            }
+            )
 
-
+            db.collection(USER_COLLECTION).updateOne(
+                {"_id": followedUser},
+                {
+                    $push: { "follow.followedBy": loggedInUser } 
+                }
+            )
+        })
+}
 
 module.exports = {
     query,
     getById,
     addUser,
     checkLogin,
+    addFollowUser
 }

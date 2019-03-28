@@ -32,7 +32,7 @@ function query(query) {
     //     name: {'$regex': value},
     //     type: value
     // }
-    console.log('querytomongo', queryToMongo)
+//  console.log('querytomongo',queryToMongo )
     return mongoService.connect()
         .then(db => {
             return db.collection('movies').find(queryToMongo).toArray()

@@ -42,7 +42,7 @@ function addReview({ user, movie, content }) {
 function getReviewsByDirect(direct, id) {
     var byId = new ObjectId(id)
 
-    console.log('ID', byId, typeof (byId))
+    // console.log('ID', byId, typeof (byId))
     if (direct == 'user') {
         return mongoService.connect()
             .then(db => db.collection('reviews').find({ "user.userId": byId }).sort({ "rate.countLike.length": -1 }).toArray())
@@ -53,8 +53,8 @@ function getReviewsByDirect(direct, id) {
     }
 }
 
-function updateReviewTxt(reviewId, newTxt) {
-    console.log('update txt',reviewId, newTxt )
+function updateReviewTxt(reviewId, txt) {
+    // console.log('update txt')
     rev_id = new ObjectId(reviewId)
     return mongoService.connect()
         .then(db => {

@@ -7,6 +7,7 @@ function addRoutes(app) {
         userService.query()
             .then(users => res.json(users))
     })
+    
     app.get(`${BASE}/:userId`, (req, res) => {
         const userId = req.params.userId
         userService.getById(userId)
@@ -33,12 +34,17 @@ function addRoutes(app) {
 
     app.put(`${BASE}/login`, (req, res) => {
         const userNamePass = req.body
-       // console.log('tagfggggg', userNamePass)
         userService.checkLogin({ userNamePass })
             .then(user => {
                 req.session.loggedInUser = user
                 res.json(user)
             })
+    })
+
+    app.put(`${BASE}/details/:userId`, (req, res) => {
+        const users = req.body
+        console.log('users:', users)
+        userService.addFollowUser(users)
     })
 }
 
