@@ -8,8 +8,8 @@ self.__precacheManifest = [
     "url": "/img/movie-home/‏‏apollo11.jpg"
   },
   {
-    "revision": "ee711b2993b64980a854",
-    "url": "/js/chunk-vendors.2429b2e7.js"
+    "revision": "2f5ece67d85e482b7fa6",
+    "url": "/js/chunk-vendors.0d59c842.js"
   },
   {
     "revision": "a2056398b76b842f85450c5feb249fde",
@@ -36,7 +36,7 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "98877313993c7ae491eaad6cd7228f2d",
+    "revision": "50f4f47c773aa148b4e6a772d14b6a5d",
     "url": "/index.html"
   },
   {
@@ -52,8 +52,8 @@ self.__precacheManifest = [
     "url": "/img/omer1.2fdf35d3.png"
   },
   {
-    "revision": "143eb072aba8b3a5db8e",
-    "url": "/js/app.500fbbaa.js"
+    "revision": "a5534be270fa9968019c",
+    "url": "/js/app.057753dc.js"
   },
   {
     "revision": "db15483446d0c6e664cfef627ec7285b",
@@ -100,7 +100,7 @@ self.__precacheManifest = [
     "url": "/fonts/Merienda-Regular.56cb3669.ttf"
   },
   {
-    "revision": "143eb072aba8b3a5db8e",
-    "url": "/css/app.1bb158a9.css"
+    "revision": "a5534be270fa9968019c",
+    "url": "/css/app.cb3cdf12.css"
   }
 ];
