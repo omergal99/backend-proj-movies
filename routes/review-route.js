@@ -10,7 +10,7 @@ function addRoutes(app) {
                 res.json(reviews)
             })
     })
-    
+
     // add new review
     app.post(BASE, (req, res) => {
         // console.log("body", req.body)
@@ -25,7 +25,7 @@ function addRoutes(app) {
             .then(review => res.json(review))
     })
 
-    //get reviews per user/per movie 
+    //get reviews per user/ movie 
     app.get(`${BASE}/:direct/:id`, (req, res) => {
         const direct = req.params.direct
         const id = req.params.id
@@ -36,22 +36,31 @@ function addRoutes(app) {
             })
     })
 
+    // update rate of review => add likes/dislikes
     app.put(BASE, (req, res) => {
         const reviewId = req.body.reviewId;
         const logedInuserId = req.body.updateUser;
-        const rateDitection= req.body.rateDitection;
-        // console.log ('direction',reviewId ,logedInuserId,rateDitection)
-        reviewService.updateReviewRate( reviewId,logedInuserId, rateDitection)
+        const rateDitection = req.body.rateDitection;
+        console.log('direction', reviewId, logedInuserId, rateDitection)
+        reviewService.updateReviewRate(reviewId, logedInuserId, rateDitection)
             .then(review => res.json(review))
     })
 
-    app.put('/review/:reviewId', (req, res) => {
-        const movie = req.body;
-        reviewService.updateReviewLike(reviewID, )
-            .then(movie => res.json(movie))
+    //update txt of the review
+    app.put(`${BASE}/:reviewId`, (req, res) => {
+        const reviewId = req.body.id;
+        const newTxt = req.body.txt;
+        console.log('direction', reviewId, newTxt)
+        reviewService.updateReviewTxt(reviewId, newTxt)
+            .then(review => res.json(review))
     })
 
+    //delete review
+    app.delete(`${BASE}/:reviewId`, (req, res) => {
+        const reviewId = req.params.reviewId;
+        reviewService.removeReview(reviewId)
+            .then(() => res.json(reviewId ))
+    })
 }
-
 
 module.exports = addRoutes;

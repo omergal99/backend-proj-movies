@@ -1,4 +1,4 @@
-const mongoService = require('./mongo-service') 
+const mongoService = require('./mongo-service')
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -19,14 +19,14 @@ function query(query) {
     //     'details.year' : '1994'
     // }
 
-    if(query.name) queryToMongo['details.name'] = {'$regex' : query.name}
-    if(query.category)queryToMongo['details.category']=query.category
+    if (query.name) queryToMongo['details.name'] = { '$regex': query.name }
+    if (query.category) queryToMongo['details.category'] = query.category
 
     // var name = query.name
     // console.log('queryquery',query)
     // if (name) queryToMongo.name = { '$regex': name }
     // if(query.details.category) queryToMongo.category = query.details.category
-    
+
     //if(query.inStock) queryToMongo.inStock = query.inStock
     // OBJECT TO MONGO LOOKS LIKE THIS: {
     //     name: {'$regex': value},
@@ -37,7 +37,7 @@ function query(query) {
         .then(db => {
             return db.collection('movies').find(queryToMongo).toArray()
         })
-        .then(movies =>{
+        .then(movies => {
             // console.log('MOVIES ----------', movies)
             return movies
         })
@@ -85,11 +85,31 @@ function update(movie) {
                 })
         })
 }
+function updateMovieRate(movieId, rate) {
+    movie_id = new ObjectId(movieId)
+    return mongoService.connect()
+        .then(db => {
+            const collection = db.collection('movies');
+            return collection.updateOne(
+                { "_id": movie_id  },
+                {
+                    $push: {
+                        rank: rate
+                    }
+                }
+            )
+                .then(result => {
+                    return movieId;
+                })
+        })
+}
+
 
 module.exports = {
     query,
     remove,
     getById,
     add,
-    update
+    update,
+    updateMovieRate
 }

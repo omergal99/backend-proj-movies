@@ -7,8 +7,8 @@ function addRoutes(app) {
         userService.query()
             .then(users => res.json(users))
     })
+    
     app.get(`${BASE}/:userId`, (req, res) => {
-        
         const userId = req.params.userId
         userService.getById(userId)
             .then((user) => {
@@ -23,11 +23,14 @@ function addRoutes(app) {
 
     app.post(`${BASE}/singup`, (req, res) => {
         const userNamePass = req.body
-        userService.addUser({ userNamePass })
-            .then(user => {
-                res.json(user)
-            })
-    })
+        //console.log('userNamePass', userNamePass)
+        userNamePass.name.toLowerCase()
+        userService.addUser(userNamePass)
+        .then(user => {
+            req.session.loggedInUser = user
+            res.json(user)
+        })
+})
 
     app.put(`${BASE}/login`, (req, res) => {
         const userNamePass = req.body
