@@ -15,9 +15,9 @@ app.use(cors({
   origin: ['http://localhost:8080'],
   credentials: true // enable set cookie
 }));
-app.use(bodyParser.json())
 app.use(express.static('public'));
 
+app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(session({
   secret: 'omer natalia',
@@ -34,6 +34,43 @@ var historyMsgs = [];
 var connectedSockets = [];
 
 io.on('connection', function (socket) {
+
+  console.log('coooonect');
+
+	socket.on('roomRequested', ({topic, user}) => {
+		
+		if (socket.theTopic) {
+			// First un-join the room
+			socket.leave(socket.theTopic);
+		}
+		console.log('User', user, 'Requested to join room:', topic);
+		socket.join(topic);
+		io.to(topic).emit('userConnected', user);
+		socket.theTopic = topic; 
+	});
+
+	socket.on('post-msg', msg => {
+
+		console.log('Posting a message', msg, 'to:', socket.theTopic);
+		// socket.to - send to everyone in the room except the sender
+		socket.to(socket.theTopic).emit('msg-recived', msg);
+		// socket.broadcast(socket.theTopic).emit('msg-recived', msg);
+		// socket.in(socket.theTopic).emit('msg-recived', msg);
+
+		// setTimeout(()=>{
+		// 	socket.emit('msg-recived', {txt: 'Hii everyone!',from: 'Natalia'},);
+		// }, 1500)
+		// setTimeout(()=>{
+    //   socket.emit('msg-recived', {txt: 'Hello Natalia, you know I\'ve seen this movie five times, it\'s just perfect',
+    //   from: 'Olga'},);
+    // }, 4000)
+    // setTimeout(()=>{
+		// 	socket.emit('msg-recived', {txt: 'No way! You\'re crazy',from: 'Natalia'},);
+		// }, 6000)
+		
+  });
+  // -------------------------------------
+
   console.log('a user connected');
   connectedSockets.push(socket);
   
@@ -41,19 +78,19 @@ io.on('connection', function (socket) {
     console.log('connection was good', boogabooga)
   })
   
-  socket.on('disconnect', function () {
-    console.log('user disconnectedddddddd',socket.nickName);
-    socket.broadcast.emit('user disconnected',socket.nickName);
-    connectedSockets = connectedSockets.filter(s => s.nickName !== socket.nickName)  
-  });
+  // socket.on('disconnect', function () {
+  //   console.log('user disconnectedddddddd',socket.nickName);
+  //   socket.broadcast.emit('user disconnected',socket.nickName);
+  //   connectedSockets = connectedSockets.filter(s => s.nickName !== socket.nickName)  
+  // });
 
-  socket.on('chat joined', nickName=>{
-      socket.emit('chat historyMsgs', historyMsgs);
-      socket.broadcast.emit('chat newUser',nickName);
-      socket.nickName = nickName;
-      console.log('i have a name', socket.nickName)
-      console.log('connectedSockets: ', connectedSockets.length);
-  });
+  // socket.on('chat joined', nickName=>{
+  //     socket.emit('chat historyMsgs', historyMsgs);
+  //     socket.broadcast.emit('chat newUser',nickName);
+  //     socket.nickName = nickName;
+  //     console.log('i have a name', socket.nickName)
+  //     console.log('connectedSockets: ', connectedSockets.length);
+  // });
 
   socket.on('chat msgToSend', (msg) => {
     console.log('msggggggggggg',msg)

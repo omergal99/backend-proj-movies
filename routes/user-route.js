@@ -7,8 +7,8 @@ function addRoutes(app) {
         userService.query()
             .then(users => res.json(users))
     })
+    
     app.get(`${BASE}/:userId`, (req, res) => {
-        
         const userId = req.params.userId
         userService.getById(userId)
             .then((user) => {
