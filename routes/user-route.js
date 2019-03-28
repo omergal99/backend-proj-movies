@@ -23,11 +23,14 @@ function addRoutes(app) {
 
     app.post(`${BASE}/singup`, (req, res) => {
         const userNamePass = req.body
-        userService.addUser({ userNamePass })
-            .then(user => {
-                res.json(user)
-            })
-    })
+        //console.log('userNamePass', userNamePass)
+        userNamePass.name.toLowerCase()
+        userService.addUser(userNamePass)
+        .then(user => {
+            req.session.loggedInUser = user
+            res.json(user)
+        })
+})
 
     app.put(`${BASE}/login`, (req, res) => {
         const userNamePass = req.body
@@ -40,9 +43,11 @@ function addRoutes(app) {
 
     app.put(`${BASE}/details/:userId`, (req, res) => {
         const users = req.body
-        console.log('users:', users)
+        console.log('users-backeng router:', users)
         userService.addFollowUser(users)
     })
+
+
 }
 
 

@@ -16,15 +16,15 @@ function addMovieRoutes(app) {
     // LIST
     app.get('/movie', (req, res) => {
         // console.log('req query',req.body)
-        if(req.body) {
+        if (req.body) {
             //console.log('123123',req.query)
             movieService.query(req.query)
-            .then(movies => res.json(movies))
+                .then(movies => res.json(movies))
         }
         else
-        movieService.query()
-            .then(movies => res.json(movies))
-            
+            movieService.query()
+                .then(movies => res.json(movies))
+
     })
 
     // SINGLE - GET Full details including reviews
@@ -52,12 +52,15 @@ function addMovieRoutes(app) {
             })
     })
 
-    // UPDATE
-    app.put('/movie/:movieId', (req, res) => {
-        const movie = req.body;
-        movieService.update(movie)
-            .then(movie => res.json(movie))
+    // UPDATE rate
+    app.put('/movie', (req, res) => {
+        const movieId = req.body.movieId;
+        const rate = req.body.rate;
+        
+        movieService.updateMovieRate(movieId, rate)
+            .then(review => res.json(review))
     })
+
 
 }
 
