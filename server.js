@@ -15,9 +15,9 @@ app.use(cors({
   origin: ['http://localhost:8080'],
   credentials: true // enable set cookie
 }));
+app.use(bodyParser.json())
 app.use(express.static('public'));
 
-app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(session({
   secret: 'omer natalia',
@@ -45,7 +45,7 @@ io.on('connection', function (socket) {
 		}
 		console.log('User', user, 'Requested to join room:', topic);
 		socket.join(topic);
-		io.to(topic).emit('userConnected', user);
+		socket.to(topic).emit('userConnected', user);
 		socket.theTopic = topic; 
 	});
 
