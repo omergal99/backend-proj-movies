@@ -7,7 +7,12 @@ function addRoutes(app) {
         userService.query()
             .then(users => res.json(users))
     })
-    
+
+    app.get(`${BASE}/logout`, (req, res) => {
+        req.session.destroy();
+        res.json({});
+    });
+
     app.get(`${BASE}/:userId`, (req, res) => {
         const userId = req.params.userId
         userService.getById(userId)
@@ -15,11 +20,6 @@ function addRoutes(app) {
                 res.json(user)
             })
     })
-
-    app.get(`${BASE}/logout`, (req, res) => {
-        req.session.destroy();
-        res.json({});
-    });
 
     app.post(`${BASE}/singup`, (req, res) => {
         const userNamePass = req.body
