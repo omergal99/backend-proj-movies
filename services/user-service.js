@@ -47,22 +47,33 @@ function addUser({ newUser }) {
 }
 
 function addFollowUser(users){
-    var loggedInUser = new ObjectId(users.loggedInUser)
-    var followedUser = new ObjectId(users.followedUser)
-    console.log('loggedInUser:', loggedInUser)
-    console.log('followedUser:', followedUser)
+    console.log('users-backeng service:', users)
+
+    var loggedInUserId = users.loggedInUser._id
+    var followedUserId = users.followedUser._id
+    var loggedInUserName = users.loggedInUser.name
+    var followedUserName = users.followedUser.name
+
+    loggedInUserId = new ObjectId(loggedInUserId)
+    followedUserId = new ObjectId(followedUserId)
+
+    console.log('loggedInUserId:', loggedInUserId)
+    console.log('followedUserId:', followedUserId)
+    console.log('loggedInUserName:', loggedInUserName)
+    console.log('followedUserName:', followedUserName)
+
     return mongoService.connect()
         .then((db) => {db.collection(USER_COLLECTION).updateOne(      
-            {"_id": loggedInUser},
+            {"_id": loggedInUserId},
             {
-                $push: { "follow.followAfter": followedUser } 
+                $push: { "follow.followAfter": followedUserName } 
             }
             )
 
             db.collection(USER_COLLECTION).updateOne(
-                {"_id": followedUser},
+                {"_id": followedUserId},
                 {
-                    $push: { "follow.followedBy": loggedInUser } 
+                    $push: { "follow.followedBy": loggedInUserName } 
                 }
             )
         })

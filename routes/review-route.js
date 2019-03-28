@@ -40,7 +40,7 @@ function addRoutes(app) {
         const reviewId = req.body.reviewId;
         const logedInuserId = req.body.updateUser;
         const rateDitection= req.body.rateDitection;
-        console.log ('direction',reviewId ,logedInuserId,rateDitection)
+        // console.log ('direction',reviewId ,logedInuserId,rateDitection)
         reviewService.updateReviewRate( reviewId,logedInuserId, rateDitection)
             .then(review => res.json(review))
     })

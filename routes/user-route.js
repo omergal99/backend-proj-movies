@@ -40,7 +40,7 @@ function addRoutes(app) {
 
     app.put(`${BASE}/details/:userId`, (req, res) => {
         const users = req.body
-        console.log('users:', users)
+        console.log('users-backeng router:', users)
         userService.addFollowUser(users)
     })
 

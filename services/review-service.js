@@ -4,7 +4,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 function addReview({ user, movie, content }) {
-    console.log('im heeeer')
+    // console.log('im heeeer')
     var review = {
         content: {
             txt: content.txt,
@@ -29,7 +29,7 @@ function addReview({ user, movie, content }) {
         }
 
     }
-    console.log('review', review)
+    // console.log('review', review)
     return mongoService.connect()
         .then(db => db.collection('reviews').insertOne(review))
         // .then (({insertedId: _id}) => ({...review, _id}))
