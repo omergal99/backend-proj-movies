@@ -36,7 +36,7 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "50f4f47c773aa148b4e6a772d14b6a5d",
+    "revision": "213b0c0ccb5e9b8b39ebc9ce00cfd100",
     "url": "/index.html"
   },
   {
@@ -52,8 +52,8 @@ self.__precacheManifest = [
     "url": "/img/omer1.2fdf35d3.png"
   },
   {
-    "revision": "a5534be270fa9968019c",
-    "url": "/js/app.057753dc.js"
+    "revision": "b2261e5215774e94e54c",
+    "url": "/js/app.48adb315.js"
   },
   {
     "revision": "db15483446d0c6e664cfef627ec7285b",
@@ -100,7 +100,7 @@ self.__precacheManifest = [
     "url": "/fonts/Merienda-Regular.56cb3669.ttf"
   },
   {
-    "revision": "a5534be270fa9968019c",
-    "url": "/css/app.cb3cdf12.css"
+    "revision": "b2261e5215774e94e54c",
+    "url": "/css/app.2f7e899c.css"
   }
 ];
