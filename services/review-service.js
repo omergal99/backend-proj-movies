@@ -39,32 +39,6 @@ function addReview({ user, movie, content }) {
         })
 }
 
-// function getUserReviews(userId) {
-//     const id = new ObjectId(userId)
-//     return mongoService.connect()
-//         .then(db =>
-//             db.collection('reviews').aggregate([
-//                 {
-//                     //$match: { user:{userId:id}}
-//                     $match: { "user.userId": id } //same as prev row
-//                 }
-//                 // {
-//                 //     $lookup:
-//                 //     {
-//                 //         from: 'movie',
-//                 //         localField: 'movieId',
-//                 //         foreignField: '_id',
-//                 //         as: 'movie'
-//                 //     }
-//                 // }, {
-//                 //     $unwind: '$movie'
-//                 // }
-//             ]).toArray()
-//         )
-
-// }
-
-
 function getReviewsByDirect(direct, id) {
     var byId = new ObjectId(id)
 
@@ -79,93 +53,71 @@ function getReviewsByDirect(direct, id) {
     }
 }
 
-function updateReviewTxt(reviewId, txt) {
-    console.log('update txt')
+function updateReviewTxt(reviewId, newTxt) {
+    console.log('update txt',reviewId, newTxt )
     rev_id = new ObjectId(reviewId)
     return mongoService.connect()
         .then(db => {
             const collection = db.collection('reviews');
-            return collection.updateOne({ _id: rev_id }, { $set: { "content.txt": txt } })
+            return collection.updateOne({ _id: rev_id }, { $set: { "content.txt": newTxt } })
                 .then(result => {
                     return result;
                 })
         })
 }
 
-function updateReviewRate( reviewId,logedInuserId, rateDitection){
+function updateReviewRate(reviewId, logedInuserId, rateDitection) {
     rev_id = new ObjectId(reviewId)
-    user_id=new ObjectId(logedInuserId)
-    if (rateDitection == 'like'){
+    user_id = new ObjectId(logedInuserId)
+    if (rateDitection == 'like') {
         return mongoService.connect()
-        .then(db => {
-            const collection = db.collection('reviews');
-            return collection.updateOne(
-                { "_id": rev_id },
-                {
-                    $push: {
-                        "rate.countLike": user_id
+            .then(db => {
+                const collection = db.collection('reviews');
+                return collection.updateOne(
+                    { "_id": rev_id },
+                    {
+                        $push: {
+                            "rate.countLike": user_id
+                        }
                     }
-                }
-            )
-            .then(result => {
-                return reviewId;
+                )
+                    .then(result => {
+                        return reviewId;
+                    })
             })
-        })
-
     }
-    else{
+    else {
         return mongoService.connect()
-        .then(db => {
-            const collection = db.collection('reviews');
-            return collection.update(
-                { "_id": rev_id },
-                {
-                    $push: {
-                        "rate.countDislike": user_id
+            .then(db => {
+                const collection = db.collection('reviews');
+                return collection.update(
+                    { "_id": rev_id },
+                    {
+                        $push: {
+                            "rate.countDislike": user_id
+                        }
                     }
-                }
-            )
-        })
+                )
+            })
     }
 }
 
-    
-           
-// function updateReviewUnlike(id) {
-//     rev_id = new ObjectId(reviewId)
-//     return mongoService.connect()
-//         .then(db => {
-//             const collection = db.collection('reviews');
-//             return collection.update(
-//                 { "_id": rev_id },
-//                 {
-//                     $push: {
-//                         "rate.countUnlike": userId
-//                     }
-//                 }
-//             )
-//         })
-//     }
 
 function removeReview(reviewId) {
-                reviewId = new ObjectId(reviewId)
-                return mongoService.connect()
-                    .then(db => {
-                        const collection = db.collection('reviews');
-                        return collection.remove({ _id: reviewId })
-                    })
-            }
-
-
+    reviewId = new ObjectId(reviewId)
+    return mongoService.connect()
+        .then(db => {
+            const collection = db.collection('reviews');
+            return collection.deleteOne({ _id: reviewId })
+        })
+}
 
 module.exports = {
-                // query,
-                // getUserReviews,
-                addReview,
-                getReviewsByDirect,
-                updateReviewTxt,
-                // updateReviewLike,
-                // updateReviewUnlike,
-                removeReview,
-                updateReviewRate
-            }
+    // query,
+    // getUserReviews,
+    addReview,
+    getReviewsByDirect,
+    updateReviewTxt,
+    removeReview,
+    updateReviewRate
+}

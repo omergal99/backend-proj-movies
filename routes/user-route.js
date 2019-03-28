@@ -22,15 +22,18 @@ function addRoutes(app) {
 
     app.post(`${BASE}/singup`, (req, res) => {
         const userNamePass = req.body
-        userService.addUser({ userNamePass })
-            .then(user => {
-                res.json(user)
-            })
-    })
+        //console.log('userNamePass', userNamePass)
+        userNamePass.name.toLowerCase()
+        userService.addUser(userNamePass)
+        .then(user => {
+            req.session.loggedInUser = user
+            res.json(user)
+        })
+})
 
     app.put(`${BASE}/login`, (req, res) => {
         const userNamePass = req.body
-        console.log('tagfggggg', userNamePass)
+       // console.log('tagfggggg', userNamePass)
         userService.checkLogin({ userNamePass })
             .then(user => {
                 req.session.loggedInUser = user
