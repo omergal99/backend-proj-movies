@@ -22,24 +22,19 @@ function query(query) {
     if (query.name) queryToMongo['details.name'] = { '$regex': query.name }
     if (query.category) queryToMongo['details.category'] = query.category
 
-    // var name = query.name
-    // console.log('queryquery',query)
-    // if (name) queryToMongo.name = { '$regex': name }
-    // if(query.details.category) queryToMongo.category = query.details.category
-
-    //if(query.inStock) queryToMongo.inStock = query.inStock
-    // OBJECT TO MONGO LOOKS LIKE THIS: {
-    //     name: {'$regex': value},
-    //     type: value
-    // }
-//  console.log('querytomongo',queryToMongo )
+    //  console.log('querytomongo',queryToMongo )
     return mongoService.connect()
         .then(db => {
             return db.collection('movies').find(queryToMongo).toArray()
         })
         .then(movies => {
-            // console.log('MOVIES ----------', movies)
-            return movies
+            var moviesTodisplay = movies.map(movie => {
+                movie.avgRank = ((movie.rank.reduce((acc, rank) => acc + rank, 0)) 
+                / movie.rank.length).toFixed(1)
+                return movie
+            })
+        //   console.log('MOVIES ----------', moviesTodisplay)
+            return moviesTodisplay
         })
 }
 
@@ -91,7 +86,7 @@ function updateMovieRate(movieId, rate) {
         .then(db => {
             const collection = db.collection('movies');
             return collection.updateOne(
-                { "_id": movie_id  },
+                { "_id": movie_id },
                 {
                     $push: {
                         rank: rate
