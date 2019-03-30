@@ -35,7 +35,7 @@ var connectedSockets = [];
 
 io.on('connection', function (socket) {
 
-  console.log('coooonect');
+  // console.log('coooonect');
 
 	socket.on('roomRequested', ({topic, user}) => {
 		
@@ -71,7 +71,7 @@ io.on('connection', function (socket) {
   });
   // -------------------------------------
 
-  console.log('a user connected');
+  // console.log('a user connected');
   connectedSockets.push(socket);
   
   socket.on('check', boogabooga => {

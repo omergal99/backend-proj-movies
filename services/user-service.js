@@ -11,11 +11,20 @@ function checkLogin({ userNamePass }) {
     const name = userNamePass.name
     const password = userNamePass.pass
     return mongoService.connect()
-        .then(db => db.collection(USER_COLLECTION).findOne({ name, password }))
+        .then(db => db.collection(USER_COLLECTION).findOne({
+            name,
+            password
+        }))
         .then(res => {
             // console.log('ressssss',res)
             return res
         })
+}
+function _isNameAvailable({ name }) {
+    return mongoService.connect()
+        .then(db => db.collection(USER_COLLECTION).findOne({ name }))
+        .then(() => true)
+        .catch(() => false)
 }
 
 function getById(id) {
@@ -26,7 +35,9 @@ function getById(id) {
 
     const _id = new ObjectId(id)
     return mongoService.connect()
-        .then(db => db.collection(USER_COLLECTION).findOne({ _id }))
+        .then(db => db.collection(USER_COLLECTION).findOne({
+            _id
+        }))
 }
 
 function query() {
@@ -50,22 +61,21 @@ function addUser(userNamePass) {
         },
         gender: 'male'
     }
-       return mongoService.connect()
-        .then(db => db.collection(USER_COLLECTION).updateOne(
-            { name: userName },
-            {
-                $set: user
-            },
-            { upsert: true }))
-        .then(res => {
-            //console.log('res....', res)
-            user._id = res.upsertedId._id
-            return user
+    return _isNameAvailable(userName)
+        .then(() => {
+            return mongoService.connect()
+                .then(db => db.collection(USER_COLLECTION).updateOne({ name: userName },
+                    { $set: user }, { upsert: true }))
+                .then(res => {
+                    // console.log('res....', res)
+                    user._id = res.upsertedId._id
+                    return user
+                })
         })
-       
+        .catch(() => '')
 }
 
-function addFollowUser(users){
+function addFollowUser(users) {
     console.log('users-backeng service:', users)
 
     var loggedInUserId = users.loggedInUser._id
@@ -82,19 +92,22 @@ function addFollowUser(users){
     console.log('followedUserName:', followedUserName)
 
     return mongoService.connect()
-        .then((db) => {db.collection(USER_COLLECTION).updateOne(      
-            {"_id": loggedInUserId},
-            {
-                $push: { "follow.followAfter": followedUserName } 
-            }
-            )
+        .then((db) => {
+            db.collection(USER_COLLECTION).updateOne({
+                "_id": loggedInUserId
+            }, {
+                    $push: {
+                        "follow.followAfter": followedUserName
+                    }
+                })
 
-            db.collection(USER_COLLECTION).updateOne(
-                {"_id": followedUserId},
-                {
-                    $push: { "follow.followedBy": loggedInUserName } 
-                }
-            )
+            db.collection(USER_COLLECTION).updateOne({
+                "_id": followedUserId
+            }, {
+                    $push: {
+                        "follow.followedBy": loggedInUserName
+                    }
+                })
         })
 }
 
