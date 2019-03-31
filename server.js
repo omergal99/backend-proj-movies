@@ -34,7 +34,13 @@ var historyMsgs = [];
 var connectedSockets = [];
 
 io.on('connection', function (socket) {
-
+  socket.on('disconnect', ()=> {
+    console.log('a user has dissconnected, was on room', socket.theTopic)
+  })
+  socket.on('dissconnect user', () => {
+    socket.leave(socket.theTopic);
+    console.log('leaving', socket.theTopic)
+  })
   // console.log('coooonect');
 
 	socket.on('roomRequested', ({topic, user}) => {
@@ -43,19 +49,19 @@ io.on('connection', function (socket) {
 			// First un-join the room
 			socket.leave(socket.theTopic);
 		}
-		console.log('User', user, 'Requested to join room:', topic);
 		socket.join(topic);
 		socket.to(topic).emit('userConnected', user);
-		socket.theTopic = topic; 
+    socket.theTopic = topic; 
+		console.log('User', user, 'joined room:', topic, 'check for topic', socket.theTopic);
 	});
 
 	socket.on('post-msg', msg => {
 
 		console.log('Posting a message', msg, 'to:', socket.theTopic);
 		// socket.to - send to everyone in the room except the sender
-		socket.to(socket.theTopic).emit('msg-recived', msg);
+		// socket.to(socket.theTopic).emit('msg-recived', msg);
 		// socket.broadcast(socket.theTopic).emit('msg-recived', msg);
-		// socket.in(socket.theTopic).emit('msg-recived', msg);
+		io.in(socket.theTopic).emit('msg-recived', msg);
 
 		// setTimeout(()=>{
 		// 	socket.emit('msg-recived', {txt: 'Hii everyone!',from: 'Natalia'},);
