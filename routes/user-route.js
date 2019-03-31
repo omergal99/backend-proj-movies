@@ -47,8 +47,12 @@ function addRoutes(app) {
         userService.addFollowUser(users)
     })
 
-
+    app.put(`${BASE}/:userId`, (req, res)=>{
+        const userAndImg=req.body
+       console.log('Natalia img ',userAndImg )
+        userService.updateImg(userAndImg)
+        .then(user => res.json(user))
+    })
 }
-
 
 module.exports = addRoutes;
