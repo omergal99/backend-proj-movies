@@ -24,7 +24,6 @@ function addMovieRoutes(app) {
         else
             movieService.query()
                 .then(movies => res.json(movies))
-
     })
 
     // SINGLE - GET Full details including reviews

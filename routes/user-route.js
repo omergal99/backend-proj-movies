@@ -3,6 +3,8 @@ const userService = require('../services/user-service')
 const BASE = '/user'
 
 function addRoutes(app) {
+    
+    // LIST OF USERS
     app.get(BASE, (req, res) => {
         userService.query()
             .then(users => res.json(users))
@@ -13,6 +15,7 @@ function addRoutes(app) {
         res.json({});
     });
 
+    // ONE USER BY ID
     app.get(`${BASE}/:userId`, (req, res) => {
         const userId = req.params.userId
         userService.getById(userId)
