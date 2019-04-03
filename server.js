@@ -34,56 +34,45 @@ var historyMsgs = [];
 var connectedSockets = [];
 
 io.on('connection', function (socket) {
-  socket.on('disconnect', ()=> {
+
+  socket.on('disconnect', () => {
+    socket.leave(socket.theTopic);
     console.log('a user has dissconnected, was on room', socket.theTopic)
   })
+
   socket.on('dissconnect user', () => {
     socket.leave(socket.theTopic);
     console.log('leaving', socket.theTopic)
   })
-  // console.log('coooonect');
 
-	socket.on('roomRequested', ({topic, user}) => {
-		
-		if (socket.theTopic) {
-			// First un-join the room
-			socket.leave(socket.theTopic);
-		}
-		socket.join(topic);
-		socket.to(topic).emit('userConnected', user);
-    socket.theTopic = topic; 
-		console.log('User', user, 'joined room:', topic, 'check for topic', socket.theTopic);
-	});
+  socket.on('roomRequested', ({ topic, user }) => {
 
-	socket.on('post-msg', msg => {
-
-		console.log('Posting a message', msg, 'to:', socket.theTopic);
-		// socket.to - send to everyone in the room except the sender
-		// socket.to(socket.theTopic).emit('msg-recived', msg);
-		// socket.broadcast(socket.theTopic).emit('msg-recived', msg);
-		io.in(socket.theTopic).emit('msg-recived', msg);
-
-		// setTimeout(()=>{
-		// 	socket.emit('msg-recived', {txt: 'Hii everyone!',from: 'Natalia'},);
-		// }, 1500)
-		// setTimeout(()=>{
-    //   socket.emit('msg-recived', {txt: 'Hello Natalia, you know I\'ve seen this movie five times, it\'s just perfect',
-    //   from: 'Olga'},);
-    // }, 4000)
-    // setTimeout(()=>{
-		// 	socket.emit('msg-recived', {txt: 'No way! You\'re crazy',from: 'Natalia'},);
-		// }, 6000)
-		
+    if (socket.theTopic) {
+      // First un-join the room
+      socket.leave(socket.theTopic);
+    }
+    socket.join(topic);
+    socket.to(topic).emit('userConnected', user);
+    socket.theTopic = topic;
+    console.log('User', user, 'joined room:', topic);
   });
-  // -------------------------------------
+
+  socket.on('post-msg', msg => {
+    console.log('Posting a message', msg, 'to:', socket.theTopic);
+    io.in(socket.theTopic).emit('msg-recived', msg);
+  });
+
+  // ----------------------------------------------------------
+  // ----------------------------------------------------------
+  // ----------------------------------------------------------
 
   // console.log('a user connected');
   connectedSockets.push(socket);
-  
+
   socket.on('check', boogabooga => {
     console.log('connection was good', boogabooga)
   })
-  
+
   // socket.on('disconnect', function () {
   //   console.log('user disconnectedddddddd',socket.nickName);
   //   socket.broadcast.emit('user disconnected',socket.nickName);
@@ -99,18 +88,18 @@ io.on('connection', function (socket) {
   // });
 
   socket.on('chat msgToSend', (msg) => {
-    console.log('msggggggggggg',msg)
-      if (msg.txt.startsWith('to:')) {
-          var to = msg.txt.substring(3, msg.txt.indexOf(';'));
-          console.log('Sending to', to);
-          var targetSocket = connectedSockets.find(s => s.nickName === to);
-          socket.emit('chat newMsg', msg);
-          targetSocket.emit('chat newMsg', msg);
-      } else {
-          io.emit('chat newMsg', msg);
-          historyMsgs.push(msg);
-      }
-      // console.log('sending msg: ' + msg, 'to:', connectedCount + 'users');
+    console.log('msggggggggggg', msg)
+    if (msg.txt.startsWith('to:')) {
+      var to = msg.txt.substring(3, msg.txt.indexOf(';'));
+      console.log('Sending to', to);
+      var targetSocket = connectedSockets.find(s => s.nickName === to);
+      socket.emit('chat newMsg', msg);
+      targetSocket.emit('chat newMsg', msg);
+    } else {
+      io.emit('chat newMsg', msg);
+      historyMsgs.push(msg);
+    }
+    // console.log('sending msg: ' + msg, 'to:', connectedCount + 'users');
   });
 });
 
