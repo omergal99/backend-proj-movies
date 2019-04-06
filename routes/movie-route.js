@@ -56,8 +56,8 @@ function addMovieRoutes(app) {
     app.put('/movie', (req, res) => {
         const movieId = req.body.movieId;
         const rate = req.body.rate;
-        
-        movieService.updateMovieRate(movieId, rate)
+        const userID = req.body.loggedInUser;
+        movieService.updateMovieRate(movieId, rate,userID)
             .then(review => res.json(review))
     })
 

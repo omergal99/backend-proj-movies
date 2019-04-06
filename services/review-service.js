@@ -39,17 +39,97 @@ function addReview({ user, movie, content }) {
         })
 }
 
+// function getReviewsByDirect(direct, id) {
+//     var byId = new ObjectId(id)
+
+//     // console.log('ID', byId, typeof (byId))
+//     if (direct == 'user') {
+//         return mongoService.connect()
+//             .then(db => db.collection('reviews').find({ "user.userId": byId }).toArray())
+//     }
+//     else if (direct == 'movie') {
+//         return mongoService.connect()
+//             .then(db => db.collection('reviews').find({ "movie.movieId": byId }).toArray())
+//     }
+// }
+
 function getReviewsByDirect(direct, id) {
     var byId = new ObjectId(id)
-
-    // console.log('ID', byId, typeof (byId))
-    if (direct == 'user') {
+        if (direct === 'user') {
         return mongoService.connect()
-            .then(db => db.collection('reviews').find({ "user.userId": byId }).sort({ "rate.countLike.length": -1 }).toArray())
+        .then(db => db.collection('reviews')
+                .aggregate([
+                    {
+                        $match: { "user.userId": byId  }
+                    },
+                    
+                    {
+                        $lookup:
+                        {
+                            from: 'movies',
+                            localField: "movie.movieId",
+                            foreignField: '_id',
+                            as: 'curmovie'
+                        }
+                    },
+                    {
+                        $unwind: '$curmovie'
+                    } 
+                   
+                ]).toArray() 
+        )
+
+              
+                //    //{"$unwind":"$movies"},
+                //     {
+                //         $lookup:
+                //         {
+                //             from: "movies",
+                //             let: { movie_id: "$movie.movieId" },
+                //             pipeline: [
+                //                 {
+                //                     $match:
+                //                     {
+                //                         $expr:
+                //                         {
+                //                             $and:
+                //                                 [
+                //                                     { $eq: ["$_id", "$$movie_id"] },
+                //                                   // { $in: [ "$$user_id","$rank.userId"] }
+                //                                 ]
+                //                         }
+                //                     }
+                //                 }
+                //                 // { $project: { _id: 0, _id: 0 } }
+                //             ],
+                //             as: "result"
+                //         }
+                //     }
+                // ]).toArray())
+        //     .aggregate([
+        //         {
+        //             $match :{ "user.userId": byId }
+        //         },
+
+        //         {
+        //             $lookup:
+        //             {
+        //                 from: 'movies',
+        //                 localField: "movie.movieId",
+        //                 foreignField: '_id',
+        //                 as: 'movieRank'
+        //             }
+        //         },
+
+        //     ])
+        //     .toArray()
+
+        // )
+
     }
     else if (direct == 'movie') {
         return mongoService.connect()
-            .then(db => db.collection('reviews').find({ "movie.movieId": byId }).sort({ "rate.countLike.length": -1 }).toArray())
+            .then(db => db.collection('reviews').find({ "movie.movieId": byId }).toArray())
     }
 }
 

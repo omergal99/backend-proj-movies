@@ -32,6 +32,7 @@ function addRoutes(app) {
         // console.log('direct', direct, id)
         reviewService.getReviewsByDirect(direct, id)
             .then(reviews => {
+                console.log('direct', reviews.curmovie) 
                 res.json(reviews)
             })
     })
@@ -41,7 +42,7 @@ function addRoutes(app) {
         const reviewId = req.body.reviewId;
         const logedInuserId = req.body.updateUser;
         const rateDitection = req.body.rateDitection;
-        console.log('direction', reviewId, logedInuserId, rateDitection)
+        //console.log('direction', reviewId, logedInuserId, rateDitection)
         reviewService.updateReviewRate(reviewId, logedInuserId, rateDitection)
             .then(review => res.json(review))
     })
@@ -50,7 +51,7 @@ function addRoutes(app) {
     app.put(`${BASE}/:reviewId`, (req, res) => {
         const reviewId = req.body.id;
         const newTxt = req.body.txt;
-        console.log('direction', reviewId, newTxt)
+       // console.log('direction', reviewId, newTxt)
         reviewService.updateReviewTxt(reviewId, newTxt)
             .then(review => res.json(review))
     })
