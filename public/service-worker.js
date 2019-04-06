@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.44ddf333bd05e7f6668f3de9b3e215b8.js"
+  "/precache-manifest.c79c83de10656eb6869648a0611b95d9.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "movie-move"});
