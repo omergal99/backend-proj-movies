@@ -16,12 +16,24 @@ self.__precacheManifest = [
     "url": "/img/movie-home/‏‏wonder-woman.jpg"
   },
   {
+    "revision": "913fdd06fb440ba9363d7f2c5011b1d7",
+    "url": "/img/movie-home/‏‏titanic.jpg"
+  },
+  {
+    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
+    "url": "/robots.txt"
+  },
+  {
     "revision": "a2056398b76b842f85450c5feb249fde",
     "url": "/img/wonder-woman.a2056398.jpg"
   },
   {
-    "revision": "913fdd06fb440ba9363d7f2c5011b1d7",
-    "url": "/img/movie-home/‏‏titanic.jpg"
+    "revision": "940f5cebc53ba40bb601feb2c2b555c6",
+    "url": "/index.html"
+  },
+  {
+    "revision": "497b31014ec62c66a35a2ce6096f8cbd",
+    "url": "/img/premium.497b3101.png"
   },
   {
     "revision": "0df4a217f6bb7edf6af5a1fcf7e57072",
@@ -40,36 +52,36 @@ self.__precacheManifest = [
     "url": "/img/olga.5b1bdeb7.png"
   },
   {
-    "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
-    "url": "/robots.txt"
-  },
-  {
-    "revision": "e1be541bbdb19471e6b3398fb9b45d28",
-    "url": "/index.html"
-  },
-  {
     "revision": "182b3c66d5e08fadc6c69fc6e0e33811",
     "url": "/img/screenwriter3.182b3c66.png"
   },
   {
-    "revision": "1266b3adbf0ff4cd3a73",
-    "url": "/js/app.944f3c11.js"
+    "revision": "9c78322a6949fd3469ad",
+    "url": "/js/app.be162540.js"
+  },
+  {
+    "revision": "de50e2e9ca0fc52b57dbe9600b542e19",
+    "url": "/img/loader1.de50e2e9.gif"
   },
   {
     "revision": "948a6c47cdd9a3619efdcd9cce9887b3",
     "url": "/fonts/KR Action.948a6c47.ttf"
   },
   {
-    "revision": "ea88134fa54625eec02721ba5880fdcb",
-    "url": "/fonts/FasterOne-Regular.ea88134f.ttf"
+    "revision": "f9c60726b250533a4fc7cf7e719b74e4",
+    "url": "/img/movie-home/‏‏Ish oushmo Ove.jpg"
+  },
+  {
+    "revision": "1436d27de4c6c4e4c1b92957ce3a9e7e",
+    "url": "/img/apollo11.1436d27d.jpg"
   },
   {
     "revision": "8fc386d9451181e0a33b8d2066a73772",
     "url": "/fonts/Movie Filmstrip.8fc386d9.ttf"
   },
   {
-    "revision": "f9c60726b250533a4fc7cf7e719b74e4",
-    "url": "/img/movie-home/‏‏Ish oushmo Ove.jpg"
+    "revision": "79960da192ebf6e82897c23d90ce433a",
+    "url": "/img/loader2.79960da1.gif"
   },
   {
     "revision": "849e67957ea4dd5edb38eedb9d5743f1",
@@ -80,28 +92,32 @@ self.__precacheManifest = [
     "url": "/fonts/Undeveloped.3504b9b6.ttf"
   },
   {
-    "revision": "4df7b9174fc9496f955a53c1dcc23d43",
-    "url": "/img/clapper4.4df7b917.png"
+    "revision": "2f2ab067d1a6622289f4e3e5151498aa",
+    "url": "/img/curtains-right.2f2ab067.png"
   },
   {
-    "revision": "2e9c3e8387225766179180652041016f",
-    "url": "/img/credit3.2e9c3e83.png"
+    "revision": "4df7b9174fc9496f955a53c1dcc23d43",
+    "url": "/img/clapper4.4df7b917.png"
   },
   {
     "revision": "56cb366910aa712773f8f2f7e7f42b9f",
     "url": "/fonts/Merienda-Regular.56cb3669.ttf"
   },
   {
-    "revision": "f9c60726b250533a4fc7cf7e719b74e4",
-    "url": "/img/Ish oushmo Ove.f9c60726.jpg"
-  },
-  {
-    "revision": "1436d27de4c6c4e4c1b92957ce3a9e7e",
-    "url": "/img/apollo11.1436d27d.jpg"
+    "revision": "2e9c3e8387225766179180652041016f",
+    "url": "/img/credit3.2e9c3e83.png"
   },
   {
     "revision": "0d50b8b2d6b1bd77c11615b232620547",
     "url": "/img/credit.0d50b8b2.png"
+  },
+  {
+    "revision": "f9c60726b250533a4fc7cf7e719b74e4",
+    "url": "/img/Ish oushmo Ove.f9c60726.jpg"
+  },
+  {
+    "revision": "557336d4deab6dcb67e3bd72f34fa92e",
+    "url": "/img/loadermovie.557336d4.gif"
   },
   {
     "revision": "920ba8371c9434163016d5f2aae9cfe2",
@@ -112,11 +128,19 @@ self.__precacheManifest = [
     "url": "/img/boy-cinema3.159504d9.png"
   },
   {
+    "revision": "ea88134fa54625eec02721ba5880fdcb",
+    "url": "/fonts/FasterOne-Regular.ea88134f.ttf"
+  },
+  {
+    "revision": "dc50b38829e0e8035fe809ef8e0313f8",
+    "url": "/fonts/ColorTube.dc50b388.otf"
+  },
+  {
     "revision": "6fd228c15ee9a968c75c483781fb3000",
     "url": "/fonts/ACFilmstrip.6fd228c1.otf"
   },
   {
-    "revision": "1266b3adbf0ff4cd3a73",
-    "url": "/css/app.dcc0e86d.css"
+    "revision": "9c78322a6949fd3469ad",
+    "url": "/css/app.6d2d0545.css"
   }
 ];
