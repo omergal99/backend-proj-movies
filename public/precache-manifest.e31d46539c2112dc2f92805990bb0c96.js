@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/img/wonder-woman.a2056398.jpg"
   },
   {
-    "revision": "825cc572e593f2be22d5ec24e9cd2a96",
+    "revision": "84b7768fadac967c9eb25ecf0479e770",
     "url": "/index.html"
   },
   {
@@ -56,8 +56,8 @@ self.__precacheManifest = [
     "url": "/img/screenwriter3.182b3c66.png"
   },
   {
-    "revision": "8acbeb8d3e418c2424b8",
-    "url": "/js/app.7430d3e7.js"
+    "revision": "39f02822d0224ecbc5c9",
+    "url": "/js/app.b86a7b70.js"
   },
   {
     "revision": "de50e2e9ca0fc52b57dbe9600b542e19",
@@ -140,7 +140,7 @@ self.__precacheManifest = [
     "url": "/fonts/ACFilmstrip.6fd228c1.otf"
   },
   {
-    "revision": "8acbeb8d3e418c2424b8",
-    "url": "/css/app.e7d29f02.css"
+    "revision": "39f02822d0224ecbc5c9",
+    "url": "/css/app.920cab85.css"
   }
 ];
