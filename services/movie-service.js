@@ -83,8 +83,9 @@ function update(movie) {
         })
 }
 function updateMovieRate(movieId, rate, userId) {
+   userIdObj= userId? ObjectId(userId): null
     var newValue = {
-        userId,
+        userId: userIdObj,
         rank: rate
     }
     movie_id = new ObjectId(movieId)

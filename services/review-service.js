@@ -29,7 +29,7 @@ function addReview({ user, movie, content }) {
         }
 
     }
-    // console.log('review', review)
+
     return mongoService.connect()
         .then(db => db.collection('reviews').insertOne(review))
         // .then (({insertedId: _id}) => ({...review, _id}))
@@ -39,30 +39,17 @@ function addReview({ user, movie, content }) {
         })
 }
 
-// function getReviewsByDirect(direct, id) {
-//     var byId = new ObjectId(id)
 
-//     // console.log('ID', byId, typeof (byId))
-//     if (direct == 'user') {
-//         return mongoService.connect()
-//             .then(db => db.collection('reviews').find({ "user.userId": byId }).toArray())
-//     }
-//     else if (direct == 'movie') {
-//         return mongoService.connect()
-//             .then(db => db.collection('reviews').find({ "movie.movieId": byId }).toArray())
-//     }
-// }
 
 function getReviewsByDirect(direct, id) {
     var byId = new ObjectId(id)
-        if (direct === 'user') {
+    if (direct === 'user') {
         return mongoService.connect()
-        .then(db => db.collection('reviews')
+            .then(db => db.collection('reviews')
                 .aggregate([
                     {
-                        $match: { "user.userId": byId  }
+                        $match: { "user.userId": byId }
                     },
-                    
                     {
                         $lookup:
                         {
@@ -72,69 +59,16 @@ function getReviewsByDirect(direct, id) {
                             as: 'curmovie'
                         }
                     },
-                    {
-                        $unwind: '$curmovie'
-                    } 
-                   
-                ]).toArray() 
-        )
-
-              
-                //    //{"$unwind":"$movies"},
-                //     {
-                //         $lookup:
-                //         {
-                //             from: "movies",
-                //             let: { movie_id: "$movie.movieId" },
-                //             pipeline: [
-                //                 {
-                //                     $match:
-                //                     {
-                //                         $expr:
-                //                         {
-                //                             $and:
-                //                                 [
-                //                                     { $eq: ["$_id", "$$movie_id"] },
-                //                                   // { $in: [ "$$user_id","$rank.userId"] }
-                //                                 ]
-                //                         }
-                //                     }
-                //                 }
-                //                 // { $project: { _id: 0, _id: 0 } }
-                //             ],
-                //             as: "result"
-                //         }
-                //     }
-                // ]).toArray())
-        //     .aggregate([
-        //         {
-        //             $match :{ "user.userId": byId }
-        //         },
-
-        //         {
-        //             $lookup:
-        //             {
-        //                 from: 'movies',
-        //                 localField: "movie.movieId",
-        //                 foreignField: '_id',
-        //                 as: 'movieRank'
-        //             }
-        //         },
-
-        //     ])
-        //     .toArray()
-
-        // )
-
+                ]).toArray()
+            )
     }
-    else if (direct == 'movie') {
+    else if (direct === 'movie') {
         return mongoService.connect()
             .then(db => db.collection('reviews').find({ "movie.movieId": byId }).toArray())
     }
 }
 
 function updateReviewTxt(reviewId, txt) {
-    // console.log('update txt')
     rev_id = new ObjectId(reviewId)
     return mongoService.connect()
         .then(db => {
