@@ -16,6 +16,6 @@
     "express-session": "^1.15.6",
     "mongodb": "^3.1.1",
     "pexels-api-wrapper": "^1.1.1",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.4.0"
   }
 }
